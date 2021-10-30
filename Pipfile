@@ -4,6 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
+flask = "*"
+nanoid = "*"
+python-dotenv = "*"
+flask-cors = "*"
+pymongo = "*"
+mongoengine = "*"
 
 [dev-packages]
 
