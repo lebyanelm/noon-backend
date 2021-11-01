@@ -31,6 +31,16 @@ if __name__ == '__main__':
     CORS(server, resources={r"*": {"origins": "*"}})
 
 
+######### SERVER ROUTES SETUP ##########
+"""GET WEATHER DATA OF AN AREA"""
+
+
+@server.route("/api/get_weather", methods=["GET"])
+@cross_origin()
+def get_weather():
+    return WeatherController.get_weather()
+
+
 ######### INITIALIZE THE SERVER TO RUN ########
 IS_DEBUG_MODE = os.environ.get(
     "ENVIRONMENT") == os.environ.get("DEVELOPMENT_MODE")
