@@ -41,6 +41,15 @@ def get_weather():
     return WeatherController.get_weather()
 
 
+"""GETTING AREA NAME SUGGESTIONS / AUTOCOMPLETION"""
+
+
+@server.route("/api/suggestions", methods=["GET"])
+@cross_origin()
+def get_autocomplete_suggestions() -> str:
+    return SuggestionsController.get_autocomplete_suggestions()
+
+
 ######### INITIALIZE THE SERVER TO RUN ########
 IS_DEBUG_MODE = os.environ.get(
     "ENVIRONMENT") == os.environ.get("DEVELOPMENT_MODE")
