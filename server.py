@@ -6,8 +6,13 @@ from dotenv import dotenv_values
 from flask_cors import CORS, cross_origin
 
 
+# controllers
+import controllers.weather as WeatherController
+import controllers.suggestions as SuggestionsController
+
+
 # server environment variable setup
-configuration = {**dotenv_values(".env.shared")}
+configuration = {**dotenv_values(".env")}
 if configuration.get("ENVIRONMENT") == configuration.get("DEVELOPMENT_MODE"):
     # mix up the development environment configuration with the program
     configuration = {**configuration, **dotenv_values(".env.secret")}
