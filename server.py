@@ -6,8 +6,13 @@ from dotenv import dotenv_values
 from flask_cors import CORS, cross_origin
 
 
+# controllers
+import controllers.weather as WeatherController
+import controllers.suggestions as SuggestionsController
+
+
 # server environment variable setup
-configuration = {**dotenv_values(".env.shared")}
+configuration = {**dotenv_values(".env")}
 if configuration.get("ENVIRONMENT") == configuration.get("DEVELOPMENT_MODE"):
     # mix up the development environment configuration with the program
     configuration = {**configuration, **dotenv_values(".env.secret")}
@@ -24,6 +29,25 @@ if __name__ == '__main__':
     server = Flask(__name__, static_folder="./static/",
                    static_url_path="/api/static/")
     CORS(server, resources={r"*": {"origins": "*"}})
+
+
+######### SERVER ROUTES SETUP ##########
+"""GET WEATHER DATA OF AN AREA"""
+
+
+@server.route("/api/get_weather", methods=["GET"])
+@cross_origin()
+def get_weather():
+    return WeatherController.get_weather()
+
+
+"""GETTING AREA NAME SUGGESTIONS / AUTOCOMPLETION"""
+
+
+@server.route("/api/suggestions", methods=["GET"])
+@cross_origin()
+def get_autocomplete_suggestions() -> str:
+    return SuggestionsController.get_autocomplete_suggestions()
 
 
 ######### INITIALIZE THE SERVER TO RUN ########

@@ -1,2 +1,3 @@
 # the pipenv shell activate command
 .pipenv
+__pycache__
