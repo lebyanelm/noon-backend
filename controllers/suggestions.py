@@ -17,7 +17,8 @@ def get_autocomplete_suggestions() -> str:
         request.query_string.decode("ascii"))
     query = request_query.get("query")
 
-    if query:
+    # to save number of calls with the api service, don't send empty requests
+    if query or len(query) != 0:
         # build the url to send to the weather API to get results relevent to them, instead of using google places.
         request_url = "".join([os.environ.get(
             "WEATHER_API_URL"), "search.json?key=", os.environ.get("WEATHER_API_KEY"), "&q=", query])
@@ -41,4 +42,9 @@ def get_autocomplete_suggestions() -> str:
             return Response(e.code).to_json()
         return Response(500).to_json()
     else:
-        return Response(400).to_json()
+        if query != None:
+            # send an empty list since no area name was provided
+            return Response(200, data=[]).to_json()
+        else:
+            # let the client know that a parameter or format of the request is incorrect
+            return Response(400).to_json()
