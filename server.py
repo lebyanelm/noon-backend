@@ -50,6 +50,12 @@ def get_autocomplete_suggestions() -> str:
     return SuggestionsController.get_autocomplete_suggestions()
 
 
+@server.route("/api/auto-location", methods=["GET"])
+@cross_origin()
+def auto_location() -> str:
+    return SuggestionsController.get_location_from_ip()
+
+
 ######### INITIALIZE THE SERVER TO RUN ########
 IS_DEBUG_MODE = os.environ.get(
     "ENVIRONMENT") == os.environ.get("DEVELOPMENT_MODE")
