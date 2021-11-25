@@ -19,12 +19,12 @@ def get_weather():
         request_query_string.decode(encoding="ascii"))
 
     # get the area name from the request query
-    area_name = request_query.get("area_name")
+    query = request_query.get("query")
 
     # check if an area has been provided
-    if area_name:
-        request_url = "".join([os.environ.get("WEATHER_API_URL"), "current.json",
-                               "?key=", os.environ.get("WEATHER_API_KEY"), "&q=", area_name])
+    if query:
+        request_url = "".join([os.environ.get("WEATHER_API_URL"), "forecast.json",
+                               "?dt=2021-11-02&key=", os.environ.get("WEATHER_API_KEY"), "&q=", query])
         print("Sending request to:", request_url)
 
         # send the request to the weather API for the weather status
